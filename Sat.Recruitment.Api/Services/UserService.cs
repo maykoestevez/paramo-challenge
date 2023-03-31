@@ -67,7 +67,7 @@ namespace Sat.Recruitment.Api.Services
             var indexToRemove = emailSplit[0].IndexOf("+", StringComparison.Ordinal);
             emailSplit[0] = indexToRemove < 0
                 ? emailSplit[0].Replace(".", "")
-                : emailSplit[0].Replace(".", "").Remove(indexToRemove);
+                : emailSplit[0].Replace(".", "").Replace("+","");
 
             return string.Join("@", new string[] {emailSplit[0], emailSplit[1]});
         }
@@ -147,7 +147,7 @@ namespace Sat.Recruitment.Api.Services
             var gif = 0.0M;
             switch (userType)
             {
-                //For normal user apply gif of 12% or 8% 
+                //For normal user apply gif of 12% or 80% 
                 case UserType.Normal:
                     if (money > 100) gif = money * 0.12M;
 

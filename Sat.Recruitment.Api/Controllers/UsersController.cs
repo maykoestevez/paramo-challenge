@@ -9,7 +9,7 @@ namespace Sat.Recruitment.Api.Controllers
     /// Manage users request 
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public partial class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -23,8 +23,7 @@ namespace Sat.Recruitment.Api.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("/create-user")]
+        [HttpPost("create-user")]
         public async Task<Result<User>> CreateUser(User user)
         {
           return await _userService.CreateUser(user);
