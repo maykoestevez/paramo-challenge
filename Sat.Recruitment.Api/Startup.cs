@@ -6,7 +6,12 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 using System.Reflection;
-using Sat.Recruitment.Api.Services;
+using Sat.Recruitment.Application.Interfaces;
+using Sat.Recruitment.Application.Services;
+using Sat.Recruitment.Infrastructure.Data;
+using Sat.Recruitment.Infrastructure.Files;
+using Sat.Recruitment.Infrastructure.Interfaces;
+using Sat.Recruitment.Infrastructure.Repository;
 
 namespace Sat.Recruitment.Api
 {
@@ -22,10 +27,13 @@ namespace Sat.Recruitment.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(Infrastructure.Mappings.UserMappings)));
             services.AddControllers();
             services.AddSwaggerGen();
-            services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IFileReader, FileReader>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserDataReader, UserDataReader>();
             services.AddSwaggerGen(c =>
             {
                 // Set the comments path for the Swagger JSON and UI.
@@ -48,10 +56,8 @@ namespace Sat.Recruitment.Api
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
-
             app.UseRouting();
             app.UseAuthorization();
-     
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

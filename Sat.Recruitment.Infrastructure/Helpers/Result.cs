@@ -1,4 +1,4 @@
-namespace Sat.Recruitment.Api.Models
+namespace Sat.Recruitment.Infrastructure.Helpers
 {
     /// <summary>
     /// Manage results from the application

@@ -1,7 +1,10 @@
 using System.Threading.Tasks;
-using Sat.Recruitment.Api.Models;
+using Sat.Recruitment.Domain.Models;
+using Sat.Recruitment.Infrastructure.Helpers;
+using Sat.Recruitment.Infrastructure.ModelDtos;
 
-namespace Sat.Recruitment.Api.Services
+
+namespace Sat.Recruitment.Application.Interfaces
 {
     /// <summary>
     /// Manage users logic
@@ -13,6 +16,6 @@ namespace Sat.Recruitment.Api.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public Task<Result<User>> CreateUser(User user);
+        public Task<Result<UserDto>> CreateUser(UserDto user);
     }
 }

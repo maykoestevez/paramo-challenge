@@ -1,9 +1,8 @@
-namespace Sat.Recruitment.Api.Models
+using Sat.Recruitment.Domain.Models;
+
+namespace Sat.Recruitment.Infrastructure.ModelDtos
 {
-    /// <summary>
-    /// Hold user data
-    /// </summary>
-    public class User
+    public class UserDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -11,12 +10,5 @@ namespace Sat.Recruitment.Api.Models
         public string Phone { get; set; }
         public UserType UserType { get; set; }
         public decimal Money { get; set; }
-    }
-
-    public enum UserType
-    {
-       SuperUser,
-       Premium,
-       Normal
     }
 }

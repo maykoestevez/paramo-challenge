@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Sat.Recruitment.Api.Models;
-using Sat.Recruitment.Api.Services;
+using Microsoft.AspNetCore.Http;
+using Sat.Recruitment.Application.Interfaces;
+using Sat.Recruitment.Domain.Models;
+using Sat.Recruitment.Infrastructure.ModelDtos;
 
 namespace Sat.Recruitment.Api.Controllers
 {
@@ -13,6 +15,7 @@ namespace Sat.Recruitment.Api.Controllers
     public partial class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+
         public UsersController(IUserService userService)
         {
             _userService = userService;
@@ -24,9 +27,12 @@ namespace Sat.Recruitment.Api.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("create-user")]
-        public async Task<Result<User>> CreateUser(User user)
+        public async Task<IActionResult> CreateUser(UserDto user)
         {
-          return await _userService.CreateUser(user);
+            var userResult = await _userService.CreateUser(user);
+            if (!userResult.IsSuccessful) return StatusCode(StatusCodes.Status500InternalServerError);
+
+            return Ok(userResult.DataResult);
         }
     }
 }
